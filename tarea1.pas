@@ -10,11 +10,11 @@ Begin
   read(caracter);
   While (caracter <> '.') Do
     Begin
-      hash := (hash * paso + ord(caracter)) Mod N;
+      hash := (hash * paso + ord(caracter));
       read(caracter);
     End;
   readln;
-  codigo := hash;
+  codigo := hash Mod N;
 End;
 
 Procedure login(codigo: Natural; intentos: integer; Var ok: boolean);
