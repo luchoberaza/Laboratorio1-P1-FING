@@ -1,39 +1,37 @@
-{ tarea1.pas - Implementación de los subprogramas solicitados }
-
-Procedure readAndHashLn(semilla, paso, N: Natural; Var codigo: Natural);
+Procedure readAndHashLn(semilla, paso, N : Natural; Var codigo : Natural);
 
 Var 
-  caracter: char;
-  hash: Natural;
+  hash : Natural;
+  letra : Char;
 Begin
   hash := semilla;
-  read(caracter);
-  While (caracter <> '.') Do
+  read(letra);
+  While (letra <> '.') Do
     Begin
-      hash := (hash * paso + ord(caracter));
-      read(caracter);
+      hash := hash*paso + ord(letra);
+      read(letra);
     End;
   readln;
   codigo := hash Mod N;
 End;
 
-Procedure login(codigo: Natural; intentos: integer; Var ok: boolean);
+Procedure login(codigo : Natural; intentos : integer; Var ok : boolean);
 
 Var 
-  hash: Natural;
-  i: integer;
+  i : integer;
+  hash : Natural;
 Begin
-  ok := false;
-  i := 1;
-  While (i <= intentos) And (Not ok) Do
+  For i := 1 To intentos Do
     Begin
       readAndHashLn(SEMILLADJB, PASODJB, NDJB, hash);
-      If hash = codigo Then
-        ok := true
+      If (hash = codigo) Then
+        Begin
+          ok := true;
+          break;
+        End
       Else
         Begin
           writeFallo(hash, i, intentos);
-          i := i + 1;
         End;
     End;
 End;
